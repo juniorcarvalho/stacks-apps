@@ -43,7 +43,7 @@ Após a instalação, verifique o status do serviço e habilite-o para iniciar a
 Garante que o Fail2ban inicie ao ligar o servidor e inicie o serviço agora:
 
 ```bash
-sudo systemctl enable --now fail2ban`
+sudo systemctl enable --now fail2ban
 ```
 
 Verifique status do sistema:
@@ -89,27 +89,12 @@ logpath = %(sshd_log)s
 
 - `bantime 1h` IP hostil fica fora por 1 hora
 - `findtime 10m` Janela de tempo para contar as falhas (10 minutos)
-- `maxretry 3` Quantidade de falhas permitidas antes do ban (3 falhas)
+- `maxretry 2` Quantidade de falhas permitidas antes do ban 
 - `backend systemd` Lê direto do journald do sistema (mais confiável)
 - `banaction` Cria uma cadeia (*chain)* específica no seu Firewall para os IPs banidos, mantendo suas regras originais limpas e organizadas.
 - `ignoreip` Nunca banir a si mesmo ou a VPN.
 
 # **c. Jail de SSH**
-
-Ative explicitamente o jail de SSH:
-
-```bash
-sudo nano /etc/fail2ban/jail.local
-```
-
-# AO FINAL DO ARQUIVO, COLOQUE ESSE BLOCO [SSHD]
-
-```text
-[sshd]
-enabled = true
-port    = ssh
-logpath = %(sshd_log)s`
-```
 
 Mesmo sem senha, este jail é essencial para:
 
@@ -152,7 +137,7 @@ sudo grep "Ban " /var/log/fail2ban.log
 ```
 
 ```bash
-chmkd +x f2b_status_log.sh
+sudo chmod +x f2b_status_log.sh
 ```
 
 ```bash
@@ -164,7 +149,7 @@ sudo fail2ban-client status sshd
 ```
 
 ```bash
-chmkd +x f2b_banstatus.sh
+sudo chmod +x f2b_banstatus.sh
 ```
 
 
