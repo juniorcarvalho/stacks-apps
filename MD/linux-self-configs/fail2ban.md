@@ -13,20 +13,6 @@ grep -i "^LogLevel" /etc/ssh/sshd_config
 LogLevel VERBOSE
 ```
 
-Isso garante registro de:
-
-- tentativas de login;
-- chaves rejeitadas;
-- usuários inexistentes;
-- IPs de origem.
-
-Se não estiver configurado neste modo, altere e execute:
-
-
-```bash
-sudo systemctl reload sshd
-```
-
 # **2. Configurar detector de intrusão**
 
 O Fail2ban é uma ferramenta que lê os logs do sistema e, ao detectar um padrão de ataque, executa um comando de bloqueio no `iptables`.
