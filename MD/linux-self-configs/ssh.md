@@ -45,7 +45,7 @@ AllowTcpForwarding no
 AllowAgentForwarding no
 
 # Logs detalhados para auditoria
-LogLevel VERBOSE`
+LogLevel VERBOSE
 ```
 
 Interpretação:
@@ -68,17 +68,13 @@ Nunca reinicie o SSH sem validar antes e mantenha uma sessão SSH aberta enquant
 Verifique se houve erros de digitação:
 
 ```bash
-sshd -t
+sudo sshd -t
 ```
 
 - Sem saída → configuração válida
 - Com erro → corrija antes de continuar
 
 Com as configurações salvas e validadas, reinicie o serviço:
-
-**Ubuntu 22.04 +**
-
-**AlmaLinux 9+**
 
 ```bash
 sudo systemctl restart ssh
