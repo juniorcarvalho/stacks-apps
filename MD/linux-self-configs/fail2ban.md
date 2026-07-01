@@ -140,3 +140,31 @@ Você deve ver:
 
 - IPs banidos (se houver);
 - contadores ativos.
+
+# **3. Scripts **
+
+```bash
+sudo nano f2b_status_log.sh
+```
+
+```text
+sudo grep "Ban " /var/log/fail2ban.log
+```
+
+```bash
+chmkd +x f2b_status_log.sh
+```
+
+```bash
+sudo nano f2b_banstatus.sh
+```
+
+```text
+sudo fail2ban-client status sshd
+```
+
+```bash
+chmkd +x f2b_banstatus.sh
+```
+
+
