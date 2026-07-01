@@ -12,16 +12,7 @@ ssh -i ~/.ssh/minha_chave_especifica root@ip_do_seu_servidor
 Instale ferramentas que auxiliam no diagnóstico e edição de arquivos no dia a dia.
 
 ```bash
-sudo apt update sudo apt -y upgrade sudo apt -y install \
-sudo \
-ca-certificates curl wget gnupg \
-vim nano \
-htop iotop \
-jq unzip tar \
-rsync \
-dnsutils \
-chrony \
-fail2ban
+sudo apt update && sudo apt -y upgrade && sudo apt -y install ca-certificates curl wget gnupg vim nano htop iotop jq unzip tar rsync dnsutils chrony fail2ban
 ```
 - `ca-certificates, curl, gnupg`: base para repositórios e downloads confiáveis.
 - `dnsutils / bind-utils`: necessários para depurar rotas, domínios e portas.
@@ -51,7 +42,7 @@ hostnamectl
 ### **Ajuste timezone (São Paulo BR, como exemplo)**
 
 ```bash
-sudo timedatectl set-timezone America/Sao_Paulo`
+sudo timedatectl set-timezone America/Sao_Paulo
 ```
 
 Verifique a mudança executando o comando:
@@ -91,3 +82,32 @@ sudo systemctl enable --now chrony
 ```bash
 sudo chronyc tracking
 ```
+
+### **Se docker estiver instalado configure para executar 'docker' sem 'sudo'
+
+1. Verifique se o grupo docker existe
+
+```bash
+getent group docker
+```
+
+Se não existir:
+
+```bash
+sudo groupadd docker
+```
+
+2. Adicione seu usuário ao grupo
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Execute:
+
+```bash
+newgrp docker
+```
+
+Isso abre um novo shell já com o grupo atualizado.
+
