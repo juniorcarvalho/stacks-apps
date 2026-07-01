@@ -141,7 +141,7 @@ Você deve ver:
 - IPs banidos (se houver);
 - contadores ativos.
 
-# **3. Scripts **
+# **3. Scripts**
 
 ```bash
 sudo nano f2b_status_log.sh
