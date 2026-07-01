@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  waha:
+    image: devlikeapro/waha:latest
+    container_name: waha
+    restart: always
+    environment:
+      - TZ=America/Sao_Paulo 
+      - WHATSAPP_DEFAULT_ENGINE=GOWS
+      - WAHA_CLIENT_BROWSER_NAME=Chrome
+      - WHATSAPP_SESSIONS_POSTGRESQL_URL=postgresql://usuario:senha@postgres_postgres:5432/base_name?sslmode=disable
+      - WHATSAPP_DATABASE_TYPE=postgres
+      - WAHA_DASHBOARD_USERNAME=admin
+      - WAHA_DASHBOARD_PASSWORD=
+      - WAHA_API_KEY=
+      - WAHA_API_KEY_PLAIN=
+      - WHATSAPP_SWAGGER_USERNAME=admin
+      - WHATSAPP_SWAGGER_PASSWORD=
+    volumes:
+      - waha_data:/app/.sessions
+    networks:
+      - network_public
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=network_public"
+        - "traefik.http.routers.waha.rule=Host(`doninio.com.br`)"
+        - "traefik.http.routers.waha.entrypoints=websecure"
+        - "traefik.http.routers.waha.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.waha.loadbalancer.server.port=3000"      
+
+volumes:
+  waha_data:
+
+networks:
+  network_public:
+    external: true
